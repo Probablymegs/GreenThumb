@@ -1,5 +1,6 @@
 // Fetch plants from Trefle
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:green_thumb/models/trefle_plant.dart';
 import 'package:green_thumb/pages/plant_details.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,7 @@ import 'package:flutter/material.dart';
 
 Future<List<TreflePlant>> fetchPlants(String query) async {
   final response = await http.get(Uri.parse(
-      'https://trefle.io/api/v1/plants/search?token=NngqqJ9hOiXDNIW5bn-rMrAPGNa7-qpURfMgHWaQ5Hc&q=$query'));
+      'https://trefle.io/api/v1/plants/search?token=${dotenv.env['TREFLE_TOKEN']}&q=$query'));
 
   if (response.statusCode == 200) {
     List<dynamic> plantsJson = jsonDecode(response.body)['data'];
