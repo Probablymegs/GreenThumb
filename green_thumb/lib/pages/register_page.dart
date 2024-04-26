@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:green_thumb/models/user.dart';
+import 'package:green_thumb/pages/search_plants.dart';
 import 'package:green_thumb/services/database.dart';
 import 'plant_profile.dart';
 
@@ -8,10 +9,10 @@ class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  _RegisterPageState createState() => _RegisterPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -19,26 +20,27 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Register Page")),
+      appBar: AppBar(title: const Text("Register")),
       body: Padding(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: "Email"),
+              decoration: const InputDecoration(labelText: "Email"),
               keyboardType: TextInputType.emailAddress,
             ),
+            const SizedBox(height: 20),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: "Password"),
+              decoration: const InputDecoration(labelText: "Password"),
               obscureText: true,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _register,
-              child: Text("Register"),
+              child: const Text("Register"),
             ),
           ],
         ),
@@ -62,7 +64,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => PlantProfile()),
+        MaterialPageRoute(builder: (context) => SearchPage()),
       );
     } on FirebaseAuthException catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(

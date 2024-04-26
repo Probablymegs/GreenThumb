@@ -21,16 +21,20 @@ class PlantWateringPageState extends State<PlantWateringPage> {
   }
 
   void _loadPlantsAndSchedules() async {
-    plants = await database.getAllUserPlants();
+    var allPlants = await database.getAllUserPlants();
     var loadedSchedules = await database.getAllUserWateringSchedules();
 
     loadedSchedules
         .sort((a, b) => a.nextWateringDate.compareTo(b.nextWateringDate));
 
     setState(() {
+      schedules.clear();
       for (var schedule in loadedSchedules) {
         schedules[schedule.plantId] = schedule;
       }
+      plants = allPlants
+          .where((plant) => schedules.containsKey(plant.documentId))
+          .toList();
     });
   }
 
@@ -60,7 +64,8 @@ class PlantWateringPageState extends State<PlantWateringPage> {
           return Card(
             child: ListTile(
               leading: needsWatering
-                  ? const Icon(Icons.warning, color: Colors.red)
+                  ? const Icon(Icons.warning,
+                      color: Color.fromARGB(255, 9, 81, 42))
                   : null,
               title: Text(plant.commonName),
               subtitle: Text(needsWatering

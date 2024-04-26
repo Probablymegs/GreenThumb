@@ -39,34 +39,71 @@ class WateringSchedulePageState extends State<WateringSchedulePage> {
       appBar: AppBar(
         title: const Text('Set Watering Schedule'),
       ),
-      body: Column(
-        children: [
-          Text('Selected Plant: ${widget.plant.commonName}'),
-          DropdownButton<String>(
-            hint: const Text('Select Frequency'),
-            value: selectedFrequency,
-            onChanged: (newValue) {
-              setState(() {
-                selectedFrequency = newValue;
-              });
-            },
-            items: ['Daily', 'Weekly', 'Bi-Weekly'].map((String frequency) {
-              return DropdownMenuItem<String>(
-                value: frequency,
-                child: Text(frequency),
-              );
-            }).toList(),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(10),
+                  color: const Color.fromARGB(255, 44, 94, 46),
+                  width: double.infinity,
+                  child: Text(
+                    'Selected Plant: ${widget.plant.commonName}',
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ClipOval(
+                    child: Image.network(
+                      widget.plant.imageUrl,
+                      width: 100,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                DropdownButton<String>(
+                  isExpanded: true,
+                  hint: const Text('Select Frequency'),
+                  value: selectedFrequency,
+                  onChanged: (newValue) {
+                    setState(() {
+                      selectedFrequency = newValue;
+                    });
+                  },
+                  items:
+                      ['Daily', 'Weekly', 'Bi-Weekly'].map((String frequency) {
+                    return DropdownMenuItem<String>(
+                      value: frequency,
+                      child: Text(frequency),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 50),
+                Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (selectedFrequency != null) {
+                        _scheduleNotification(
+                            widget.plant.documentId, selectedFrequency!);
+                      }
+                    },
+                    child: const Text('Set Schedule'),
+                  ),
+                ),
+              ],
+            ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              if (selectedFrequency != null) {
-                _scheduleNotification(
-                    widget.plant.documentId, selectedFrequency!);
-              }
-            },
-            child: const Text('Set Schedule'),
-          ),
-        ],
+        ),
       ),
     );
   }
