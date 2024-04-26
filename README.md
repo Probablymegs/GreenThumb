@@ -11,14 +11,14 @@ GreenThumb is a mobile application aimed at enhancing the plant care experience.
 GreenThumb serves as a digital "home" for plant collections, where users can:
 - Identify plants using the Trefle API.
 - Manage their personal plant collections.
-- Maintain tailored watering schedules and receive care notifications.
+- Maintain tailored watering schedules and view care notifications.
 
 ## Purpose and Functionality
 
 - **Plant Identification and Information**: Users can search the Trefle API's  plant database to identify plants and access detailed care information.
 - **Add to Personal Collection**: Allows users to add and manage their plants in a personalized digital garden.
 - **Custom Watering Schedules**: Generates and manages watering schedules specific to each plant's needs.
-- **Care Notifications**: Sends timely reminders for plant care activities to ensure proper maintenance.
+- **Care Notifications**: Users can set watering reminders within the application to ensure proper maintenance.
 
 ## Core Competencies
 
@@ -32,7 +32,6 @@ GreenThumb serves as a digital "home" for plant collections, where users can:
 - **Remote Storage (Firebase Firestore)**: Uses Firebase Firestore for storing user data and plant information securely.
 - **Authentication Services (Firebase Auth)**: Implements Firebase Auth for secure user authentication.
 - **Integration with the Trefle API**: Utilizes the Trefle API for plant search and identification capabilities.
-- **Local Notifications**: Implements notifications to remind users of their watering schedules and other care activities.
 
 
 
